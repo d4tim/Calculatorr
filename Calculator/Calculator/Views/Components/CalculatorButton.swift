@@ -20,11 +20,19 @@ extension CalculatorView{
                 viewModel.performAction(for: buttonType)
             }
                 .buttonStyle(CalculatorButtonStyle(
-                    isWide: buttonType == .digit(.zero),
-                    size: getButtonSize(),
-                    backgroundColor: buttonType.backgroundColor,
-                    foregroundColor: buttonType.foreGroundColor))
+                    isWide: buttonType == .digit(.zero), size: getButtonSize(),
+                    backgroundColor: getBackgroundColor(),
+                    foregroundColor: getForegroundColor())
+                )
         }
+        
+        private func getBackgroundColor() -> Color {
+                    return viewModel.buttonTypeIsHighlighted(buttonType: buttonType) ? buttonType.foreGroundColor : buttonType.backgroundColor
+                }
+
+                private func getForegroundColor() -> Color {
+                    return viewModel.buttonTypeIsHighlighted(buttonType: buttonType) ? buttonType.backgroundColor : buttonType.foreGroundColor
+                }
         
         private func getButtonSize() -> CGFloat {
             let screenWidth = UIScreen.main.bounds.width
